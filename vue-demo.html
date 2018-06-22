@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue 测试实例</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>{{ message }}</p>
+</div>
+
+<div id="app3">
+    <p v-if='seen'>现在你可以看到我了</p>
+</div>
+
+<div id='app4'>
+    <ol>
+        <li v-for='todo in todos'>
+            {{todo.text}}
+        </li>
+    </ol>
+</div>
+
+
+<div id='app5'>
+    <p>{{message}}</p>
+    <button v-on:click='reverseMessage'>逆转消息</button>
+</div>
+
+<div id='app6'>
+    <p>{{message}}</p>
+    <input v-model='message'/>
+</div>
+
+
+<!--
+    组件化
+-->
+<div id='app7'>
+    <ol>
+        <todo-item 
+          v-for='item in groceryList'
+          v-bind:todo='item'
+          v-bind:key="item.id">
+        </todo-item>
+    </ol>
+</div>
+
+<script>
+
+Vue.component('todo-item',{
+    props:["todo"],
+    template: '<li>{{todo.text}}</li>'
+})
+
+var app7 = new Vue({
+    el:'#app7',
+    data:{
+        groceryList:[
+            {id:0, text:'id--0'},
+            {id:1, text:'id--1'},
+            {id:2, text:'id--2'}
+        ]
+    }
+})
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue.js!'
+  }
+})
+
+// 数据变更
+var app3 = new Vue({
+    el:'#app3',
+    data:{
+        seen:false
+    }
+})
+
+// 循环
+var app4 = new Vue({
+    el:'#app4',
+    data:{
+      todos:[
+        {text:'vue基础学习'},
+        {text:'vue高级进阶'},
+        {text:'集成UI前端'}
+    ]}
+})
+
+// button点击事件
+var app5 = new Vue({
+    el : '#app5',
+    data : {
+        message : 'Hello Vue.js'
+    },
+    methods : {
+        reverseMessage : function(){
+            this.message = this.message.split('').reverse().join('')
+        }
+    }
+})
+
+// 双向绑定
+var app6 = new Vue({
+    el : '#app6',
+    data : {
+        message : 'Hello Vue.js'
+    }
+})
+
+</script>
+</body>
+</html>

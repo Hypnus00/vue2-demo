@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vue 数组</title>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <ul id='app1'>
+        <li v-for="n in evenNumbers">{{ n }}</li>
+    </ul>
+    <p>-----------------------------------</p>
+    <ul id='app2'>
+        <li v-for="n in even(numbers)">{{ n }}</li>
+    </ul>
+    <p>-----------------------------------</p>
+    <ul id='app3'>
+        <!--1 2 3 4 5-->
+        <li v-for="n in 5">{{ n }}</li>
+    </ul>
+</body>
+<script>
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            numbers: [1, 2, 3, 4, 5, 6, 7, 8]
+        },
+        computed: {
+            evenNumbers: function() {
+                // 数据过滤
+                return this.numbers.filter(function(number){
+                    return number % 2 === 0
+                })
+            }
+        }
+    })
+
+    var app2 = new Vue({
+        el: '#app2',
+        data: {
+            numbers: [1, 2, 3, 4, 5, 6]
+        },
+        methods: {
+            even: function(numbers) {
+                return numbers.filter(function(number){
+                    return number % 2 === 0
+                })
+            }
+        }
+    })
+
+    var app3 = new Vue({
+        el: '#app3'
+    })
+</script>

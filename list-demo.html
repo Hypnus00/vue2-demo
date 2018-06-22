@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 列表渲染</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <ul id='ul-1'>
+        <li v-for='item in items'>
+            {{ item.message }}
+        </li>
+    </ul>
+    <ul id='ul-2'>
+        <!-- 访问父作用域属性 parentMessage -->
+        <li v-for='(item, index) in items'>
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
+    <!--对象属性遍历-->
+    <ul id='ul-3'>
+        <!-- 遍历属性值
+        <li v-for='value in demoObj'>
+            {{ value }}
+        </li>
+        -->
+        <!--遍历属性值和属性名称-->
+        <!--
+        <li v-for='(value, key) in demoObj'>
+            {{ key }} - {{ value }}
+        </li>
+        -->
+        <!--遍历属性值、属性名称、属性索引(不同JS引擎返回的结果可能会不一样)-->
+        <li v-for='(value, key, index) in demoObj'>
+            {{ index }} - {{ key }} - {{ value }} 
+        </li>
+    </ul>
+</body>
+<script>
+    var ul1 = new Vue({
+        el: '#ul-1',
+        data: {
+            items: [
+                { message: '11111' },
+                { message: '22222' }
+            ]
+        }
+    })
+
+    var ul2 = new Vue({
+        el: '#ul-2',
+        data: {
+            parentMessage: 'parentMessage',
+            items: [
+                { message: 'message111' },
+                { message: 'message222' }
+            ]
+        }
+    })
+
+    var ul3 = new Vue({
+        el: "#ul-3",
+        data: {
+            demoObj: {
+                age: 19,
+                gender: 'male',
+                name: 'Jhon'
+            }
+        }
+    })
+</script>
